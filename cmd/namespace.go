@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"sort"
 
 	"github.com/odu-cli/odu/internal/config"
@@ -22,8 +23,10 @@ func Dispatch(ns string, args []string) error {
 		return fmt.Errorf("unknown namespace %q — run 'odu list' to see registered namespaces", ns)
 	}
 
-	// silently pull; non-fatal
-	_ = git.Pull(entry.LocalPath)
+	// silently pull; warn on failure but continue with cached version
+	if _, err := git.Pull(entry.LocalPath); err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: %s\n\n", err)
+	}
 
 	m, err := manifest.Load(entry.LocalPath)
 	if err != nil {

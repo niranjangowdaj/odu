@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -50,7 +51,20 @@ var addCmd = &cobra.Command{
 			return fmt.Errorf("directory already exists at %s — remove it or choose a different namespace", localPath)
 		}
 
-		fmt.Printf("Cloning %s...\n", url)
+		// Trust prompt
+		fmt.Println("⚠️  Only add repos you trust. Scripts will run on your machine with your permissions.")
+		fmt.Printf("\n  Namespace : %s\n  Repo URL  : %s\n\n", ns, url)
+		fmt.Print("Do you trust this repo and want to add it? [y/N] ")
+
+		reader := bufio.NewReader(os.Stdin)
+		answer, _ := reader.ReadString('\n')
+		answer = strings.TrimSpace(strings.ToLower(answer))
+		if answer != "y" && answer != "yes" {
+			fmt.Println("Aborted.")
+			return nil
+		}
+
+		fmt.Printf("\nCloning %s...\n", url)
 		if err := git.Clone(url, localPath); err != nil {
 			return err
 		}

@@ -41,8 +41,8 @@ func pullOne(cfg *config.Config, ns string) error {
 		return fmt.Errorf("namespace %q not found — run 'odu list' to see registered namespaces", ns)
 	}
 	fmt.Printf("Updating '%s'... ", ns)
-	if err := git.Pull(entry.LocalPath); err != nil {
-		fmt.Println("✗ (git pull failed, using cached version)")
+	if _, err := git.Pull(entry.LocalPath); err != nil {
+		fmt.Printf("✗ %s\n", err)
 		return nil
 	}
 	fmt.Println("✓")
