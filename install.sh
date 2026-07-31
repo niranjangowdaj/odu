@@ -2,7 +2,7 @@
 set -e
 
 REPO="niranjangowdaj/odu"
-INSTALL_DIR="/usr/local/bin"
+INSTALL_DIR="$HOME/.local/bin"
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
@@ -39,13 +39,22 @@ TMP=$(mktemp)
 curl -fsSL "$URL" -o "$TMP"
 chmod +x "$TMP"
 
-echo "Installing to $INSTALL_DIR/odu (may require sudo)..."
-if [ -w "$INSTALL_DIR" ]; then
-  mv "$TMP" "$INSTALL_DIR/odu"
-else
-  sudo mv "$TMP" "$INSTALL_DIR/odu"
-fi
+mkdir -p "$INSTALL_DIR"
+mv "$TMP" "$INSTALL_DIR/odu"
 
 echo ""
-echo "✓ odu $LATEST installed successfully!"
-echo "  Run 'odu --help' to get started."
+echo "✓ odu $LATEST installed to $INSTALL_DIR/odu"
+
+# Warn if INSTALL_DIR is not in PATH
+case ":$PATH:" in
+  *":$INSTALL_DIR:"*) ;;
+  *)
+    echo ""
+    echo "  ⚠️  $INSTALL_DIR is not in your PATH."
+    echo "  Add this to your ~/.zshrc or ~/.bashrc:"
+    echo ""
+    echo "    export PATH=\"\$HOME/.local/bin:\$PATH\""
+    echo ""
+    echo "  Then restart your shell or run: source ~/.zshrc"
+    ;;
+esac
