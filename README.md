@@ -26,6 +26,15 @@ odu bpi install
 odu bpi deploy --env prod
 ```
 
+Try the sample repo to see odu in action:
+
+```bash
+odu add sample https://github.com/<org>/odu-sample-scripts.git
+odu sample
+odu sample setup
+odu sample deploy --env prod
+```
+
 ## Commands
 
 | Command | Description |
@@ -39,7 +48,18 @@ odu bpi deploy --env prod
 
 ## Setting up a script repo
 
-Create a GitHub repo with an `odu.yaml` in the root:
+Scaffold a new repo instantly with:
+
+```bash
+odu init my-scripts
+cd my-scripts
+# edit odu.yaml and scripts/, then push to GitHub
+odu add my-scripts github.com/<org>/my-scripts
+```
+
+Or look at the sample repo for a reference on structure and `odu.yaml` format.
+
+Manually, create a GitHub repo with an `odu.yaml` in the root:
 
 ```yaml
 scripts:
