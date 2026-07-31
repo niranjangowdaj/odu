@@ -25,6 +25,10 @@ Examples:
 	},
 }
 
+func SetVersion(v string) {
+	rootCmd.Version = v
+}
+
 func Execute() error {
 	return rootCmd.Execute()
 }
