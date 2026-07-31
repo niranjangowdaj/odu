@@ -69,7 +69,9 @@ No `odu.yaml`? No problem — odu automatically discovers any `.sh` files in the
 ## Releasing a new version
 
 ```bash
-./release.sh v0.2.0
+./release.sh           # patch: v0.1.0 → v0.1.1 (default)
+./release.sh minor     # minor: v0.1.0 → v0.2.0
+./release.sh major     # major: v0.1.0 → v1.0.0
 ```
 
-GitHub Actions builds binaries for macOS, Linux, and Windows and publishes them as a GitHub Release automatically.
+Each release automatically updates `CHANGELOG.md` with all commits since the last release, commits it, then tags and pushes — triggering GitHub Actions to build binaries for macOS, Linux, and Windows.
