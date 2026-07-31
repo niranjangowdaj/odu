@@ -1,3 +1,7 @@
+## v0.3.0 — 2026-08-01
+
+- Add trust prompt on odu add and improved error handling for clone/pull failures (e1ead22)
+
 # Changelog
 
 ## v0.2.0 — 2026-08-01
