@@ -1,3 +1,7 @@
+## v0.3.1 — 2026-08-01
+
+- Install to ~/.local/bin to avoid sudo requirement (56658a4)
+
 ## v0.3.0 — 2026-08-01
 
 - Add trust prompt on odu add and improved error handling for clone/pull failures (e1ead22)
