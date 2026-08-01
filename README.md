@@ -58,7 +58,9 @@ odu sample deploy --env prod
 
 ## Setting up a script repo
 
-Scaffold a new repo instantly with:
+### Scaffold with odu init
+
+The fastest way to create a new script repo:
 
 ```bash
 odu init my-scripts
@@ -67,27 +69,73 @@ cd my-scripts
 odu add my-scripts github.com/<org>/my-scripts
 ```
 
-Or look at the sample repo for a reference on structure and `odu.yaml` format.
+### Repo structure
 
-Manually, create a GitHub repo with an `odu.yaml` in the root:
+```
+my-scripts/
+├── odu.yaml          # script manifest (optional but recommended)
+└── scripts/
+    ├── setup.sh
+    ├── deploy.sh
+    └── analyse.py
+```
+
+### odu.yaml manifest
+
+Define your scripts with names, paths, and descriptions. Descriptions containing `:` must be quoted.
 
 ```yaml
 scripts:
-  install:
-    path: scripts/install.sh
+  setup:
+    path: scripts/setup.sh
     description: Install all dependencies
   deploy:
     path: scripts/deploy.sh
-    description: Deploy to an environment
+    description: "Deploy to an environment (usage: deploy --env prod)"
+  analyse:
+    path: scripts/analyse.py
+    description: Analyse data
 ```
 
-No `odu.yaml`? No problem — odu automatically discovers any `.sh` files in the repo root and `scripts/` folder. Add a `# Description: ...` comment on the first non-shebang line to show a description in the help output.
+### Without odu.yaml
+
+No manifest needed — odu auto-discovers any `.sh` files in the repo root and `scripts/` folder. Add a `# Description: ...` comment after the shebang for help text:
 
 ```bash
 #!/bin/bash
 # Description: Install all dependencies
-...
 ```
+
+### Writing scripts
+
+- Scripts run with the **repo root as the working directory** so you can reference other files relatively
+- Pass arguments naturally — `odu myteam deploy --env prod` forwards `--env prod` to `deploy.sh`
+- Use `set -e` at the top to stop on first error
+- Exit with a non-zero code to signal failure — odu propagates it
+
+### Sharing with your team
+
+1. Push your script repo to GitHub (or any git host)
+2. Share the `odu add` command with teammates:
+   ```bash
+   odu add myteam https://github.com/<org>/myteam-scripts
+   ```
+3. Scripts stay up to date automatically — odu pulls the latest on every run
+
+### Managing multiple namespaces
+
+```bash
+odu list                  # see all registered namespaces
+odu update                # pull latest for all namespaces at once
+odu update myteam         # pull latest for a specific namespace
+odu remove myteam         # remove a namespace
+```
+
+### Adding new scripts to an existing repo
+
+1. Add the script file to `scripts/`
+2. Add an entry to `odu.yaml`
+3. Commit and push — teammates get it automatically on their next `odu <namespace> <script>` run
 
 ## How it works
 
