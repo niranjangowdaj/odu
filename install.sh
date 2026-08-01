@@ -36,7 +36,23 @@ URL="https://github.com/$REPO/releases/download/$LATEST/$BINARY"
 
 echo "Downloading odu $LATEST ($OS/$ARCH)..."
 TMP=$(mktemp)
-curl -fsSL "$URL" -o "$TMP"
+
+# spinner runs while curl downloads in background
+_spinner() {
+  local frames='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+  local i=0
+  while kill -0 "$1" 2>/dev/null; do
+    printf "\r  %s" "${frames:$((i % ${#frames})):1}"
+    i=$((i + 1))
+    sleep 0.08
+  done
+  printf "\r  ✓\n"
+}
+
+curl -fsSL "$URL" -o "$TMP" &
+CURL_PID=$!
+_spinner "$CURL_PID"
+wait "$CURL_PID" || { echo "Download failed. Check the URL: $URL"; exit 1; }
 chmod +x "$TMP"
 
 mkdir -p "$INSTALL_DIR"
