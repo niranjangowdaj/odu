@@ -1,12 +1,12 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"runtime"
-	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -67,26 +67,20 @@ func fetchLatestVersion() (string, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-
 	if resp.StatusCode != http.StatusOK {
 		return "", fmt.Errorf("GitHub API returned HTTP %d — check your internet connection", resp.StatusCode)
 	}
 
-	for _, line := range strings.Split(string(body), "\n") {
-		line = strings.TrimSpace(line)
-		if strings.HasPrefix(line, `"tag_name"`) {
-			parts := strings.SplitN(line, ":", 2)
-			if len(parts) == 2 {
-				tag := strings.Trim(strings.TrimSpace(parts[1]), `",`)
-				return tag, nil
-			}
-		}
+	var release struct {
+		TagName string `json:"tag_name"`
 	}
-	return "", fmt.Errorf("tag_name not found in GitHub API response")
+	if err := json.NewDecoder(resp.Body).Decode(&release); err != nil {
+		return "", fmt.Errorf("could not parse GitHub API response: %w", err)
+	}
+	if release.TagName == "" {
+		return "", fmt.Errorf("no releases found")
+	}
+	return release.TagName, nil
 }
 
 func downloadBinary(url string) (string, error) {
