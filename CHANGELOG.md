@@ -1,3 +1,8 @@
+## v0.6.3 — 2026-08-02
+
+- Add community utils namespace to README (e09925c)
+- Add MIT license (8ed6a23)
+
 ## v0.6.2 — 2026-08-02
 
 - Fix upgrade: use proper JSON parsing instead of line scanning (85e8de0)
