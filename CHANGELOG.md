@@ -1,3 +1,7 @@
+## v0.6.1 — 2026-08-02
+
+- Add Node.js and Ruby script examples to README (4ea37fc)
+
 ## v0.6.0 — 2026-08-02
 
 - Ignore .DS_Store (54e81f7)
