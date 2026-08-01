@@ -12,6 +12,7 @@ import (
 type Script struct {
 	Path        string `yaml:"path"`
 	Description string `yaml:"description"`
+	Runner      string `yaml:"runner"`
 }
 
 type Manifest struct {
@@ -44,7 +45,9 @@ func discover(repoPath string) (*Manifest, error) {
 
 	patterns := []string{
 		filepath.Join(repoPath, "*.sh"),
+		filepath.Join(repoPath, "*.py"),
 		filepath.Join(repoPath, "scripts", "*.sh"),
+		filepath.Join(repoPath, "scripts", "*.py"),
 	}
 
 	for _, pattern := range patterns {
@@ -53,7 +56,8 @@ func discover(repoPath string) (*Manifest, error) {
 			return nil, err
 		}
 		for _, match := range matches {
-			name := strings.TrimSuffix(filepath.Base(match), ".sh")
+			ext := filepath.Ext(match)
+			name := strings.TrimSuffix(filepath.Base(match), ext)
 			relPath, _ := filepath.Rel(repoPath, match)
 			m.Scripts[name] = Script{
 				Path:        relPath,

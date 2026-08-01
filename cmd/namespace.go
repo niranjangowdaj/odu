@@ -47,7 +47,7 @@ func Dispatch(ns string, args []string) error {
 		return printHelp(ns, m)
 	}
 
-	return runner.Run(entry.LocalPath, script.Path, scriptArgs)
+	return runner.Run(entry.LocalPath, script.Path, script.Runner, scriptArgs)
 }
 
 func printHelp(ns string, m *manifest.Manifest) error {

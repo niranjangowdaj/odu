@@ -108,9 +108,42 @@ No manifest needed — odu auto-discovers any `.sh` files in the repo root and `
 
 ### Writing scripts
 
+odu supports bash and Python scripts out of the box. The interpreter is picked automatically:
+
+| Priority | How | Example |
+|---|---|---|
+| 1 | `runner` field in `odu.yaml` | `runner: python3` |
+| 2 | Shebang line in the script | `#!/usr/bin/env python3` |
+| 3 | File extension | `.py` → `python3`, `.rb` → `ruby`, `.js` → `node` |
+| 4 | Fallback | `bash` |
+
+**Bash script:**
+```bash
+#!/bin/bash
+# Description: Install all dependencies
+set -e
+echo "Installing..."
+```
+
+**Python script:**
+```python
+#!/usr/bin/env python3
+# Description: Analyze data
+print("Analyzing...")
+```
+
+**Explicit runner in odu.yaml** (useful when no shebang):
+```yaml
+scripts:
+  analyze:
+    path: scripts/analyze.py
+    description: Analyze data
+    runner: python3
+```
+
 - Scripts run with the **repo root as the working directory** so you can reference other files relatively
 - Pass arguments naturally — `odu my-team deploy --env prod` forwards `--env prod` to `deploy.sh`
-- Use `set -e` at the top to stop on first error
+- Use `set -e` in bash scripts to stop on first error
 - Exit with a non-zero code to signal failure — odu propagates it
 
 ### Sharing with your team
