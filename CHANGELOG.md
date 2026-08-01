@@ -1,3 +1,7 @@
+## v0.6.2 — 2026-08-02
+
+- Fix upgrade: use proper JSON parsing instead of line scanning (85e8de0)
+
 ## v0.6.1 — 2026-08-02
 
 - Add Node.js and Ruby script examples to README (4ea37fc)
