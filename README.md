@@ -10,6 +10,14 @@ curl -fsSL https://raw.githubusercontent.com/niranjangowdaj/odu/main/install.sh 
 
 Supports macOS (Intel + Apple Silicon) and Linux. Requires `git` and `bash`.
 
+## Upgrade
+
+```bash
+odu upgrade
+```
+
+Checks for the latest release and replaces the binary in-place. No sudo needed.
+
 ## Quick start
 
 ```bash
@@ -45,6 +53,8 @@ odu sample deploy --env prod
 | `odu update [namespace]` | Pull latest scripts (all namespaces if none specified) |
 | `odu <namespace>` | List available scripts in a namespace |
 | `odu <namespace> <script> [args...]` | Run a script |
+| `odu init <name>` | Scaffold a new script repo |
+| `odu upgrade` | Upgrade odu to the latest version |
 
 ## Setting up a script repo
 
