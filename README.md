@@ -43,6 +43,17 @@ odu sample setup
 odu sample deploy --env prod
 ```
 
+Or add the community utils namespace for common developer scripts:
+
+```bash
+odu add utils https://github.com/niranjangowdaj/common-script-utils
+odu utils                        # list all available scripts
+odu utils kport 3000             # kill whatever is on port 3000
+odu utils lsport                 # see all listening ports
+odu utils cleanbranches          # clean up merged git branches
+odu utils serve                  # serve current directory on port 8000
+```
+
 ## Commands
 
 | Command | Description |
