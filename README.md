@@ -132,6 +132,21 @@ echo "Installing..."
 print("Analyzing...")
 ```
 
+**Node.js script:**
+```js
+#!/usr/bin/env node
+// Description: Check environment
+const os = require('os')
+console.log(`Node ${process.version} on ${os.platform()}`)
+```
+
+**Ruby script:**
+```ruby
+#!/usr/bin/env ruby
+# Description: Show Ruby info
+puts "Ruby #{RUBY_VERSION} on #{RUBY_PLATFORM}"
+```
+
 **Explicit runner in odu.yaml** (useful when no shebang):
 ```yaml
 scripts:
@@ -139,6 +154,10 @@ scripts:
     path: scripts/analyze.py
     description: Analyze data
     runner: python3
+  report:
+    path: scripts/report.js
+    description: Generate report
+    runner: node
 ```
 
 - Scripts run with the **repo root as the working directory** so you can reference other files relatively
