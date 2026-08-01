@@ -77,7 +77,7 @@ my-scripts/
 └── scripts/
     ├── setup.sh
     ├── deploy.sh
-    └── analyse.py
+    └── analyze.py
 ```
 
 ### odu.yaml manifest
@@ -92,9 +92,9 @@ scripts:
   deploy:
     path: scripts/deploy.sh
     description: "Deploy to an environment (usage: deploy --env prod)"
-  analyse:
-    path: scripts/analyse.py
-    description: Analyse data
+  analyze:
+    path: scripts/analyze.py
+    description: Analyze data
 ```
 
 ### Without odu.yaml
@@ -109,7 +109,7 @@ No manifest needed — odu auto-discovers any `.sh` files in the repo root and `
 ### Writing scripts
 
 - Scripts run with the **repo root as the working directory** so you can reference other files relatively
-- Pass arguments naturally — `odu myteam deploy --env prod` forwards `--env prod` to `deploy.sh`
+- Pass arguments naturally — `odu my-team deploy --env prod` forwards `--env prod` to `deploy.sh`
 - Use `set -e` at the top to stop on first error
 - Exit with a non-zero code to signal failure — odu propagates it
 
@@ -118,7 +118,7 @@ No manifest needed — odu auto-discovers any `.sh` files in the repo root and `
 1. Push your script repo to GitHub (or any git host)
 2. Share the `odu add` command with teammates:
    ```bash
-   odu add myteam https://github.com/<org>/myteam-scripts
+   odu add my-team https://github.com/<org>/my-team-scripts
    ```
 3. Scripts stay up to date automatically — odu pulls the latest on every run
 
@@ -127,8 +127,8 @@ No manifest needed — odu auto-discovers any `.sh` files in the repo root and `
 ```bash
 odu list                  # see all registered namespaces
 odu update                # pull latest for all namespaces at once
-odu update myteam         # pull latest for a specific namespace
-odu remove myteam         # remove a namespace
+odu update my-team        # pull latest for a specific namespace
+odu remove my-team        # remove a namespace
 ```
 
 ### Adding new scripts to an existing repo
