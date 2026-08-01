@@ -65,6 +65,7 @@ odu utils serve                  # serve current directory on port 8000
 | `odu <namespace>` | List available scripts in a namespace |
 | `odu <namespace> <script> [args...]` | Run a script |
 | `odu init <name>` | Scaffold a new script repo |
+| `odu show <namespace> <script>` | Show script source (press q to quit) |
 | `odu upgrade` | Upgrade odu to the latest version |
 
 ## Setting up a script repo
