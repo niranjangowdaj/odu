@@ -1,3 +1,10 @@
+## v0.6.0 — 2026-08-02
+
+- Ignore .DS_Store (54e81f7)
+- Add Python (and Ruby, Node) script support via shebang, extension, or runner field (d512ae4)
+- Fix spelling warnings in README (81d5562)
+- Add comprehensive script repo management section to README (c5ef06e)
+
 ## v0.5.0 — 2026-08-01
 
 - Add odu upgrade command for self-updating the binary (adbdea4)
