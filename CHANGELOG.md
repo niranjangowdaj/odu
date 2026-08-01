@@ -1,3 +1,7 @@
+## v0.5.0 — 2026-08-01
+
+- Add odu upgrade command for self-updating the binary (adbdea4)
+
 ## v0.4.0 — 2026-08-01
 
 - Add unit tests for config, manifest, git, and cmd packages (24636db)
