@@ -1,3 +1,7 @@
+## v0.3.2 — 2026-08-01
+
+- Add download spinner to install.sh (0a953e7)
+
 ## v0.3.1 — 2026-08-01
 
 - Install to ~/.local/bin to avoid sudo requirement (56658a4)
