@@ -1,3 +1,7 @@
+## v0.7.0 — 2026-08-02
+
+- Add odu show command to view script source in pager (q to quit) (576ef65)
+
 ## v0.6.3 — 2026-08-02
 
 - Add community utils namespace to README (e09925c)
