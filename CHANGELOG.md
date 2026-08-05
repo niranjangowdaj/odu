@@ -1,3 +1,7 @@
+## v0.8.0 — 2026-08-05
+
+- Smart dispatch: run odu <script> directly if unambiguous; show namespace summary on odu (b3071bd)
+
 ## v0.7.0 — 2026-08-02
 
 - Add odu show command to view script source in pager (q to quit) (576ef65)
