@@ -50,6 +50,8 @@ func printNamespaceSummary() {
 
 	fmt.Println()
 	fmt.Println("─────────────────────────────────────────")
+	fmt.Println("  Available Scripts")
+	fmt.Println("─────────────────────────────────────────")
 
 	nsList := make([]string, 0, len(cfg.Namespaces))
 	for ns := range cfg.Namespaces {
