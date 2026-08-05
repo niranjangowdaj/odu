@@ -64,9 +64,17 @@ odu utils serve                  # serve current directory on port 8000
 | `odu update [namespace]` | Pull latest scripts (all namespaces if none specified) |
 | `odu <namespace>` | List available scripts in a namespace |
 | `odu <namespace> <script> [args...]` | Run a script |
+| `odu <script> [args...]` | Run a script directly if it exists in only one namespace |
 | `odu init <name>` | Scaffold a new script repo |
 | `odu show <namespace> <script>` | Show script source (press q to quit) |
 | `odu upgrade` | Upgrade odu to the latest version |
+
+Running `odu` with no arguments shows help and a summary of all registered namespaces and their scripts:
+
+```
+─────────────────────────────────────────
+  utils             cleanbranches, kport, lsjava, lsport, serve, vjava
+```
 
 ## Setting up a script repo
 
