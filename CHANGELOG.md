@@ -1,3 +1,7 @@
+## v0.9.0 — 2026-08-05
+
+- Add dynamic tab completion: namespaces with URLs, scripts with descriptions (6fc6f62)
+
 ## v0.8.1 — 2026-08-05
 
 - Add 'Available Scripts' heading to namespace summary (5927901)
