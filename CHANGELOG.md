@@ -1,3 +1,8 @@
+## v0.8.1 — 2026-08-05
+
+- Add 'Available Scripts' heading to namespace summary (5927901)
+- Update README: smart dispatch and namespace summary docs (2cd4af2)
+
 ## v0.8.0 — 2026-08-05
 
 - Smart dispatch: run odu <script> directly if unambiguous; show namespace summary on odu (b3071bd)
