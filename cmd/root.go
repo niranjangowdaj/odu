@@ -23,6 +23,39 @@ Examples:
 	Args:          cobra.ArbitraryArgs,
 	SilenceUsage:  true,
 	SilenceErrors: true,
+	ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		cfg, err := config.Load()
+		if err != nil {
+			return nil, cobra.ShellCompDirectiveNoFileComp
+		}
+
+		// first arg: suggest namespace names with their URLs as descriptions
+		if len(args) == 0 {
+			var completions []string
+			for ns, entry := range cfg.Namespaces {
+				completions = append(completions, fmt.Sprintf("%s\t%s", ns, entry.URL))
+			}
+			return completions, cobra.ShellCompDirectiveNoFileComp
+		}
+
+		// second arg: suggest script names if first arg is a known namespace
+		ns := args[0]
+		entry, exists := cfg.Namespaces[ns]
+		if !exists {
+			return nil, cobra.ShellCompDirectiveNoFileComp
+		}
+
+		m, err := manifest.Load(entry.LocalPath)
+		if err != nil {
+			return nil, cobra.ShellCompDirectiveNoFileComp
+		}
+
+		var completions []string
+		for name, script := range m.Scripts {
+			completions = append(completions, fmt.Sprintf("%s\t%s", name, script.Description))
+		}
+		return completions, cobra.ShellCompDirectiveNoFileComp
+	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) == 0 {
 			cmd.Help()
